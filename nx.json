@@ -46,13 +46,6 @@
       "options": {
         "targetName": "lint"
       }
-    },
-    {
-      "plugin": "@nx/jest/plugin",
-      "options": {
-        "targetName": "test"
-      },
-      "exclude": ["apps/pet-markt-be-e2e/**/*"]
     }
   ],
   "targetDefaults": {
