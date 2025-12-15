@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateProductInput } from './dto/create-product.input';
 import { UpdateProductInput } from './dto/update-product.input';
 import { PrismaService } from '../prisma/prisma.service';
-
+import { Product } from '../../generated/prisma';
 @Injectable()
 export class ProductsService {
 
@@ -21,6 +21,18 @@ export class ProductsService {
         id,
       }
     });
+  }
+
+  async searchProducts(term: string): Promise<Product[]> {
+       const lowercaseTerm  = term.toLowerCase();
+    return this.prisma.product.findMany({
+      where: {
+        OR: [
+          { name : { contains: lowercaseTerm, mode: 'insensitive'}},
+          { description : { contains: lowercaseTerm, mode: 'insensitive'}},
+        ],
+      }
+    })
   }
 
  
